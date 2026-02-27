@@ -6,6 +6,7 @@
     <title>{% block title %}Mia Jewelry{% endblock %}</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body>
 <header>
@@ -26,22 +27,19 @@
     <div class="header-main">
         <div class="logo">MIA JEWELRY</div>
     </div>
+    <div class="header-account">
+      <a href="#" class="account-link" data-login-open>
+      <span class="account-icon">👤</span>
+       <span>CONNEXION / INSCRIPTION</span>
+         </a>
+    </div>
 {#MENU SECONDAIRE #} 
     <nav class="subnav">
     <a href="/nouveautes" class="{{ app.request.getPathInfo() starts with '/nouveautes' ? 'active' }}">NOUVEAUTÉS</a>
-    <div class="dropdown {{ app.request.getPathInfo() starts with '/bijoux' ? 'active' }}">
-      <a href="#" class="dropdown-toggle" onclick="return false;">BIJOUX <span class="chev">›</span></a>
-      
-    </div>    
+    <a href="/bijoux" class="{{ app.request.getPathInfo() starts with '/bijoux' ? 'active' }}">BIJOUX</a>
     <a href="/cadeaux" class="{{ app.request.getPathInfo() starts with '/cadeaux' ? 'active' }}">IDÉES CADEAUX</a>
     <a href="/collection" class="{{ app.request.getPathInfo() starts with '/collection' ? 'active' }}">COLLECTION</a>
-</nav>
-<div class="header-account">
-    <a href="#" id="open-login-panel">
-        <span>👤</span> LOGIN / REGISTER
-    </a>
-</div>
-
+    </nav>
 </header>
 <main>
     {% block body %}{% endblock %}
@@ -49,5 +47,48 @@
 <footer class="footer">
     <p>© 2026 Mia Jewelry - Tous droits réservés</p>
 </footer>
+{#Panneau connexion#}
+<div class="login-overlay" data-login-overlay hidden></div>
+
+<aside class="login-drawer" data-login-drawer>
+  <div class="login-drawer__head">
+    <h3 class="login-title">Se connecter</h3>
+    <button type="button" class="login-close" data-login-close>✕ Fermer</button>
+  </div>
+
+  <div class="login-drawer__body">
+    <form class="login-form" method="post" action="{{ path('app_login') }}">
+      <label class="login-label">Identifiant ou e-mail <span>*</span></label>
+      <input class="login-input" type="text" name="_username" autocomplete="username" required>
+
+      <label class="login-label">Mot de passe <span>*</span></label>
+      <div class="login-password">
+        <input class="login-input" type="password" name="_password" autocomplete="current-password" required>
+        <button type="button" class="login-eye" data-toggle-password aria-label="Afficher le mot de passe">👁</button>
+      </div>
+      <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+      <button class="login-submit" type="submit">SE CONNECTER</button>
+
+      <div class="login-row">
+        <label class="login-remember">
+          <input type="checkbox" name="_remember_me">
+          Se souvenir de moi
+        </label>
+
+        <a class="login-link" href="#">Mot de passe oublié ?</a>
+      </div>
+
+      <div class="login-sep"></div>
+
+      <div class="login-footer">
+        <div class="login-avatar"></div>
+        <p class="login-muted">Vous n'avez pas de compte ?</p>
+        <a class="login-create" href="{{ path('app_register') }}">CRÉER UN COMPTE</a>
+      </div>
+    </form>
+  </div>
+</aside>
+
 </body>
 </html>
