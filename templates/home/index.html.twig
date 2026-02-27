@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mia Jewelry - Accueil{% endblock %}
+
+{% block body %}
+
+ {#<section class="hero">
+    <div class="hero-content">
+        <h1>Élégance et Raffinement</h1>
+        <p>Découvrez nos créations uniques en bagues, colliers, bracelets et boucles d’oreilles.</p>
+        <a href="/boutique" class="btn-primary">Voir la boutique</a>
+    </div>
+
+   <div class="hero-image">
+        <img src="https://via.placeholder.com/600x500?text=Image+de+bijoux" alt="hero">
+    </div>
+</section>#}
+
+<section class="categories">
+    <h2>Nos Collections</h2>
+
+    <div class="category-grid">
+
+        <a class="category-card" href="/boutique">
+            <img src="/uploads/products/bracelet1.png"/>
+            <span>Bracelets</span>
+        </a>
+
+        <a class="category-card" href="/boutique">
+            <img src="/uploads/products/bague.png" />
+            <span>Bagues</span>
+        </a>
+
+        <a class="category-card" href="/boutique">
+            <img src="/uploads/products/collier.png" />
+            <span>Colliers</span>
+        </a>
+
+        <a class="category-card" href="/boutique">
+            <img src="/uploads/products/boucle.png" />
+            <span>Boucles d'oreilles</span>
+        </a>
+
+    </div>
+</section>
+
+{% endblock %}

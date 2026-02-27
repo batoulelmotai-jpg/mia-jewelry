@@ -1,0 +1,40 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+{% block body %}
+  <div class="page-header">
+    <div>
+      <h1>Tableau de bord</h1>
+      <p class="muted">Vue rapide de votre boutique</p>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-title">Produits</div>
+      <div class="card-value">{{ productsCount }}</div>
+      <div class="card-hint">dans le catalogue</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Commandes</div>
+      <div class="card-value">{{ ordersCount }}</div>
+      <div class="card-hint">au total</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Nouvelles</div>
+      <div class="card-value">{{ newOrdersCount }}</div>
+      <div class="card-hint">à traiter</div>
+    </div>
+  </div>
+
+  <div class="card mt">
+    <div class="card-title">Accès rapide</div>
+    <div class="actions">
+      <a class="btn" href="{{ path('admin_product_index') }}">Gérer les produits</a>
+      <a class="btn" href="{{ path('admin_order_index') }}">Voir les commandes</a>
+    </div>
+  </div>
+{% endblock %}

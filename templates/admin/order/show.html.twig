@@ -1,0 +1,59 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Commande #{{ order.id }}{% endblock %}
+
+{% block body %}
+<div class="page">
+  <div class="page__head">
+    <div>
+      <h1>Commande #{{ order.id }}</h1>
+      <p class="muted">Détails de la commande</p>
+    </div>
+    <a class="btn btn--ghost" href="{{ path('admin_order_index') }}">← Retour</a>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card__title">Client</div>
+      <div><b>Nom:</b> {{ order.customerName }}</div>
+      <div><b>Téléphone:</b> {{ order.phone }}</div>
+      <div><b>Ville:</b> {{ order.city ?: '—' }}</div>
+      <div><b>Statut:</b> <span class="badge">{{ order.status }}</span></div>
+      <div><b>Date:</b> {{ order.createdAt|date('d/m/Y H:i') }}</div>
+    </div>
+
+    <div class="card">
+      <div class="card__title">Total</div>
+      <div style="font-size:28px;font-weight:800;">{{ order.total }} MAD</div>
+      <div class="muted">Total calculé côté commande</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px;">
+    <div class="card__title">Articles</div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Produit</th>
+          <th>Qté</th>
+          <th>Prix unitaire</th>
+          <th>Sous-total</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for item in order.orderItems %}
+        <tr>
+          <td>{{ item.product.name ?? 'Produit' }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.unitPrice }} MAD</td>
+          <td>{{ (item.quantity * item.unitPrice)|number_format(2, '.', ' ') }} MAD</td>
+        </tr>
+      {% else %}
+        <tr><td colspan="4" class="muted">Aucun article.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

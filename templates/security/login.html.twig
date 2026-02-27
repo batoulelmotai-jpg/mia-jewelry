@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion Admin - Mia Jewelry{% endblock %}
+
+{% block body %}
+
+<div class="login-box">
+  <h2>Connexion Admin</h2>
+
+  {% if error %}
+    <div class="error">Email ou mot de passe incorrect.</div>
+  {% endif %}
+
+  <form method="post" action="{{ path('app_login') }}">
+
+    <label>Email</label>
+    <input type="email" name="email" value="{{ last_username }}" required autofocus>
+
+    <label>Mot de passe</label>
+    <input type="password" name="password" required>
+
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+    <button type="submit">Se connecter</button>
+  </form>
+
+  <a class="register-link" href="{{ path('app_register') }}">
+    Créer un compte
+  </a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modifier produit{% endblock %}
+
+{% block body %}
+<div class="page">
+  <div class="page__head">
+    <div>
+      <h1>Modifier le produit</h1>
+      <p class="muted">Mettre à jour les informations</p>
+    </div>
+    <a class="btn btn--ghost" href="{{ path('admin_product_index') }}">← Retour</a>
+  </div>
+
+  <div class="card">
+    <div class="card__title">Édition</div>
+    {{ include('product/_form.html.twig', { form: form, button_label: 'Mettre à jour' }) }}
+  </div>
+
+  <div class="card" style="margin-top:14px;">
+    <div class="card__title">Danger</div>
+    {{ include('product/_delete_form.html.twig') }}
+  </div>
+</div>
+{% endblock %}

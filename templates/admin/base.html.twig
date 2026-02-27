@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Admin - Luxury Bijoux{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+
+<style>
+
+</style>
+
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+<div class="admin">
+    <aside class="sidebar">
+    <div class="brand">
+        <div style="display:flex;gap:12px;align-items:center;">
+            <div class="brand__logo">LB</div>
+            <div>
+                <div class="brand__title">Luxury Bijoux</div>
+                <div class="brand__subtitle">Administration</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav__section">Gestion</div>
+
+    <nav class="nav">
+        <a class="nav__item {{ app.request.attributes.get('_route') starts with 'admin_product_' ? 'is-active' : '' }}"
+           href="{{ path('admin_product_index') }}">
+            <span class="ico">P</span>
+            <span>
+                <div class="nav__title">Produits</div>
+                <div class="nav__sub">Catalogue & stock</div>
+            </span>
+        </a>
+
+        <a class="nav__item {{ app.request.attributes.get('_route') starts with 'admin_order_' ? 'is-active' : '' }}"
+           href="{{ path('admin_order_index') }}">
+            <span class="ico">C</span>
+            <span>
+                <div class="nav__title">Commandes</div>
+                <div class="nav__sub">Suivi & statuts</div>
+            </span>
+        </a>
+    </nav>
+
+    <div class="sidebar__footer">
+        <div class="nav__section">Session</div>
+
+        <a class="nav__item nav__danger" href="{{ path('app_logout') }}">
+            <span class="ico">⎋</span>
+            <span>
+                <div class="nav__title">Déconnexion</div>
+                <div class="nav__sub">Quitter l'admin</div>
+            </span>
+        </a>
+    </div>
+</aside>
+
+    <main class="main">
+        <div class="topbar">
+            <div>
+                <div class="topbar__title">{% block page_title %}Tableau de bord{% endblock %}</div>
+                <div class="topbar__hint">{% block page_subtitle %}Interface d'administration{% endblock %}</div>
+            </div>
+        </div>
+
+        <section class="content">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+            {% block body %}{% endblock %}
+        </section>
+    </main>
+</div>
+
+{% block javascripts %}{% endblock %}
+<script src="{{ asset('js/app.js') }}"></script>
+</body>
+</html> 

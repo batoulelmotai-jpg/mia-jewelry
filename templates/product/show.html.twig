@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit #{{ product.id }}{% endblock %}
+
+{% block body %}
+<div class="page">
+  <div class="page__head">
+    <div>
+      <h1>Détails du produit</h1>
+      <p class="muted">Aperçu rapide</p>
+    </div>
+
+    <div style="display:flex; gap:10px;">
+      <a class="btn btn--ghost" href="{{ path('admin_product_index') }}">← Retour</a>
+      <a class="btn btn--gold" href="{{ path('admin_product_edit', {id: product.id}) }}">Modifier</a>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card__title">Informations</div>
+      <div><b>ID:</b> #{{ product.id }}</div>
+      <div><b>Nom:</b> {{ product.name }}</div>
+      {% if product.image %}
+          <div class="card" style="margin-top:14px;">
+            <div class="card__title">Image</div>
+            <img
+              src="{{ asset('uploads/products/' ~ product.image) }}"
+              alt="{{ product.name }}"
+              class="preview"
+            >
+          </div>
+        {% endif %}
+      <div><b>Prix:</b> {{ product.price }} €</div>
+    </div>
+
+    <div class="card">
+      <div class="card__title">Statut</div>
+      <div class="muted">Tu peux ajouter plus tard: stock, catégorie, images…</div>
+    </div>
+  </div>
+</div>
+{% endblock %}

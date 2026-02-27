@@ -1,0 +1,70 @@
+{{ form_start(form, { attr: { class: 'form' } }) }}
+
+<div class="form__grid">
+
+  <div class="form__field form__field--full">
+    <label class="form__label">Nom du produit</label>
+    {{ form_widget(form.name, { attr: { class: 'input', placeholder: 'Ex: Bague Or 18K' } }) }}
+    {{ form_errors(form.name) }}
+  </div>
+
+  <div class="form__field">
+    <label class="form__label">Prix (€)</label>
+    {{ form_widget(form.price, { attr: { class: 'input', placeholder: 'Ex: 499.00' } }) }}
+    {{ form_errors(form.price) }}
+  </div>
+
+  {% if form.category is defined %}
+    <div class="form__field">
+      <label class="form__label">Catégorie</label>
+      {{ form_widget(form.category, { attr: { class: 'select' } }) }}
+      {{ form_errors(form.category) }}
+    </div>
+  {% endif %}
+
+  {% if form.stock is defined %}
+    <div class="form__field">
+      <label class="form__label">Stock</label>
+      {{ form_widget(form.stock, { attr: { class: 'input', min: 0 } }) }}
+      {{ form_errors(form.stock) }}
+    </div>
+  {% endif %}
+
+  {% if form.image is defined %}
+    <div class="form__field form__field--full">
+      <label class="form__label">Image (URL)</label>
+      {{ form_widget(form.image, { attr: { class: 'input', placeholder: 'https://...' } }) }}
+      {{ form_errors(form.image) }}
+    </div>
+  {% endif %}
+
+  {% if form.description is defined %}
+    <div class="form__field form__field--full">
+      <label class="form__label">Description</label>
+      {{ form_widget(form.description, { attr: { class: 'textarea', rows: 5, placeholder: 'Détails du bijou…' } }) }}
+      {{ form_errors(form.description) }}
+    </div>
+  {% endif %}
+
+
+  {% if form.createdAt is defined %}
+    <div class="form__field">
+      <label class="form__label">Créé le</label>
+      {{ form_widget(form.createdAt, { attr: { class: 'input', readonly: 'readonly' } }) }}
+      {{ form_errors(form.createdAt) }}
+    </div>
+  {% endif %}
+
+</div>
+
+<div class="form__actions">
+  <button class="btn btn--gold" type="submit">
+    {{ button_label|default('Enregistrer') }}
+  </button>
+
+  <a class="btn btn--ghost" href="{{ path('admin_product_index') }}">
+    Annuler
+  </a>
+</div>
+
+{{ form_end(form) }}

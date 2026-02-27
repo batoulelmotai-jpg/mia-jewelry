@@ -1,0 +1,20 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Nouveau produit{% endblock %}
+
+{% block body %}
+<div class="page">
+  <div class="page__head">
+    <div>
+      <h1>Nouveau produit</h1>
+      <p class="muted">Ajouter un bijou au catalogue</p>
+    </div>
+    <a class="btn btn--ghost" href="{{ path('admin_product_index') }}">← Retour</a>
+  </div>
+
+  <div class="card">
+    <div class="card__title">Informations du produit</div>
+    {{ include('product/_form.html.twig', { form: form, button_label: 'Créer' }) }}
+  </div>
+</div>
+{% endblock %}

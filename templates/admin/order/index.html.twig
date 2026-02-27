@@ -1,0 +1,51 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Commandes{% endblock %}
+
+{% block body %}
+<div class="page">
+  <div class="page__head">
+    <div>
+      <h1>Commandes</h1>
+      <p class="muted">Suivi des commandes clients</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card__title">Liste des commandes</div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Client</th>
+          <th>Téléphone</th>
+          <th>Ville</th>
+          <th>Statut</th>
+          <th>Total</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for o in orders %}
+        <tr>
+          <td>#{{ o.id }}</td>
+          <td>{{ o.customerName }}</td>
+          <td>{{ o.phone }}</td>
+          <td>{{ o.city ?: '—' }}</td>
+          <td><span class="badge">{{ o.status }}</span></td>
+          <td>{{ o.total }} MAD</td>
+          <td>{{ o.createdAt|date('d/m/Y H:i') }}</td>
+          <td>
+            <a class="btn btn--ghost" href="{{ path('admin_order_show', {id: o.id}) }}">Voir</a>
+          </td>
+        </tr>
+      {% else %}
+        <tr><td colspan="8" class="muted">Aucune commande trouvée.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

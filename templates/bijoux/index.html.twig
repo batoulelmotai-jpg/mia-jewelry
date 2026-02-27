@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bijoux - Mia Jewelry{% endblock %}
+
+{% block body %}
+
+<section class="bijoux-layout">
+
+    <!-- COLONNE GAUCHE -->
+    <aside class="categories-left">
+        <h3>Parcourir par catégorie</h3>
+        <a href="#">Colliers</a>
+        <a href="#">Boucles d'oreilles</a>
+        <a href="#">Bracelets</a>
+        <a href="#">Gourmettes</a>
+        <a href="#">Bagues</a>
+        <a href="#">Chaînes</a>
+
+        <a href="#" class="all">Voir toutes les catégories ></a>
+    </aside>
+
+    <!-- IMAGE PRINCIPALE -->
+    <div class="bijoux-main-image">
+        <img class="hero-image" src="/uploads/products/backgroundbijoux .png" alt="Bijoux">
+        <p class="bijoux-text">Des bijoux au design moderne et contemporain à adopter sans modération</p>
+        <a class="btn-outline" href="#">Commander ></a>
+    </div>
+
+</section>
+
+{% endblock %}

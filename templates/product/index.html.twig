@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Bijoux – Mia Jewelry{% endblock %}
+
+{% block body %}
+
+<section class="collections">
+    <h1>Bijoux & Collections</h1>
+    <p>Découvrez nos nouveautés, bracelets, bagues, colliers et boucles d’oreilles.</p>
+
+    <div class="filters">
+        <button class="active">Tous</button>
+        <button>Bracelets</button>
+        <button>Bagues</button>
+        <button>Colliers</button>
+        <button>Boucles</button>
+    </div>
+
+    <div class="products-grid">
+        {% for product in products %}
+        <div class="product-card">
+            <img src="/uploads/{{ product.image }}" alt="{{ product.name }}">
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.price }} €</p>
+        </div>
+        {% else %}
+        <p>Aucun produit pour le moment.</p>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

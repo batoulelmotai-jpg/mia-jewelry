@@ -1,17 +1,53 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mia Jewelry{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+</head>
+<body>
+<header>
+{#TOP BAR NOIRE #} 
+    <div class="topbar">
+        <div class="topbar-left">
+            <span>📍 Find a store</span>
+            <span>✉️ info@miajewelry.com</span>
+        </div>
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+        <div class="topbar-right">
+            <a href="/boutique">🛍 Boutique en ligne</a>
+            <a href="#">FR</a>
+            <a href="#">EN</a>
+        </div>
+    </div>
+{#LOGO CENTRÉ LUXE #} 
+    <div class="header-main">
+        <div class="logo">MIA JEWELRY</div>
+    </div>
+{#MENU SECONDAIRE #} 
+    <nav class="subnav">
+    <a href="/nouveautes" class="{{ app.request.getPathInfo() starts with '/nouveautes' ? 'active' }}">NOUVEAUTÉS</a>
+    <div class="dropdown {{ app.request.getPathInfo() starts with '/bijoux' ? 'active' }}">
+      <a href="#" class="dropdown-toggle" onclick="return false;">BIJOUX <span class="chev">›</span></a>
+      
+    </div>    
+    <a href="/cadeaux" class="{{ app.request.getPathInfo() starts with '/cadeaux' ? 'active' }}">IDÉES CADEAUX</a>
+    <a href="/collection" class="{{ app.request.getPathInfo() starts with '/collection' ? 'active' }}">COLLECTION</a>
+</nav>
+<div class="header-account">
+    <a href="#" id="open-login-panel">
+        <span>👤</span> LOGIN / REGISTER
+    </a>
+</div>
+
+</header>
+<main>
+    {% block body %}{% endblock %}
+</main>
+<footer class="footer">
+    <p>© 2026 Mia Jewelry - Tous droits réservés</p>
+</footer>
+</body>
 </html>
