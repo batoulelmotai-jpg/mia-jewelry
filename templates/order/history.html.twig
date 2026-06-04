@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes commandes — Mia Jewelry{% endblock %}
+
+{% block body %}
+<div class="container" style="padding: 60px 40px;">
+
+    <div class="section-title">
+        <h2>Mes commandes</h2>
+        <p>Historique de vos achats</p>
+    </div>
+
+    {% if orders %}
+
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>N° commande</th>
+                    <th>Date</th>
+                    <th>Articles</th>
+                    <th style="text-align:center;">Statut</th>
+                    <th style="text-align:right;">Total</th>
+                    <th style="text-align:center;">Détail</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>
+                        <strong>#{{ order.id }}</strong>
+                    </td>
+                    <td style="color:#888;font-size:13px;">
+                        {{ order.createdAt|date('d/m/Y') }}
+                    </td>
+                    <td style="font-size:13px;">
+                        {{ order.orderItems|length }} article(s)
+                    </td>
+                    <td style="text-align:center;">
+                        <span style="
+                            font-size:11px;
+                            letter-spacing:1px;
+                            text-transform:uppercase;
+                            padding:4px 12px;
+                            background:{% if order.status == 'paid' %}#f0faf0{% elseif order.status == 'shipped' %}#f0f0fa{% elseif order.status == 'delivered' %}#f8f5f0{% else %}#fafafa{% endif %};
+                            color:{% if order.status == 'paid' %}#2d7a2d{% elseif order.status == 'shipped' %}#2d2d7a{% elseif order.status == 'delivered' %}#c9a96e{% else %}#888{% endif %};
+                        ">
+                            {{ order.statusLabel }}
+                        </span>
+                    </td>
+                    <td style="text-align:right;font-weight:600;">
+                        {{ order.totalAmount|number_format(2, ',', ' ') }} €
+                    </td>
+                    <td style="text-align:center;">
+                        <a href="{{ path('app_order_confirmation', {id: order.id}) }}"
+                           style="font-size:11px;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid #1a1a1a;">
+                            Voir
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <div style="text-align:center;padding:80px 0;">
+            <p style="font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#888;margin-bottom:30px;">
+                Vous n'avez pas encore de commandes
+            </p>
+            <a href="{{ path('app_catalogue') }}" class="btn-primary">
+                Découvrir nos bijoux
+            </a>
+        </div>
+
+    {% endif %}
+
+</div>
+{% endblock %}

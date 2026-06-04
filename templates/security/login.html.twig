@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion — Mia Jewelry{% endblock %}
+
+{% block body %}
+<div class="form-container">
+
+    <h1 class="form-title">Connexion</h1>
+
+    {% if error %}
+        <div class="alert alert-error" style="margin-bottom:20px;border-radius:4px;">
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
+    {% endif %}
+
+    <form method="post">
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email"
+                   name="_username"
+                   value="{{ last_username }}"
+                   placeholder="votre@email.com"
+                   autocomplete="email"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Mot de passe</label>
+            <input type="password"
+                   name="_password"
+                   placeholder="Votre mot de passe"
+                   autocomplete="current-password"
+                   required>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+            <input type="checkbox" id="remember" name="_remember_me">
+            <label for="remember" style="font-size:13px;color:#888;text-transform:none;letter-spacing:0;">
+                Se souvenir de moi
+            </label>
+        </div>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+        <button type="submit" class="btn-primary" style="width:100%;text-align:center;padding:14px;">
+            Se connecter
+        </button>
+
+    </form>
+
+    <p style="text-align:center;margin-top:25px;font-size:13px;color:#888;">
+        Pas encore de compte ?
+        <a href="{{ path('app_register') }}" style="color:#1a1a1a;text-decoration:underline;">
+            Créer un compte
+        </a>
+    </p>
+
+</div>
+{% endblock %}

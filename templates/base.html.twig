@@ -1,24 +1,90 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mia Jewelry{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
+    <div class="promo-banner">
+        ✦ Livraison offerte dès 80€ d'achat
+    </div>
 
-        {% set frankenphpHotReload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
-        {% if frankenphpHotReload %}
-        <meta name="frankenphp-hot-reload:url" content="{{ frankenphpHotReload }}">
-        <script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
-        <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
-        {% endif %}
-    </head>
-    <body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="{{ path('app_contact') }}">Contactez-nous</a>
+        </div>
+        <a href="{{ path('app_home') }}" class="navbar-brand">Mia Jewelry</a>
+        <div class="navbar-right">
+            {% if is_granted('ROLE_USER') %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('app_admin') }}">Admin</a>
+                {% endif %}
+                <a href="{{ path('app_account') }}">Mon compte</a>
+                <a href="{{ path('app_logout') }}">Déconnexion</a>
+            {% else %}
+                <a href="{{ path('app_login') }}">Connexion</a>
+                <a href="{{ path('app_register') }}">Inscription</a>
+            {% endif %}
+            <a href="{{ path('app_cart') }}" class="cart-icon">🛒</a>
+        </div>
+    </nav>
+
+    <nav class="nav-secondary">
+    <a href="{{ path('app_catalogue', {category: 'colliers'}) }}">Colliers</a>
+    <a href="{{ path('app_catalogue', {category: 'bagues'}) }}">Bagues</a>
+    <a href="{{ path('app_catalogue', {category: 'bracelets'}) }}">Bracelets</a>
+    <a href="{{ path('app_catalogue', {category: 'boucles-oreilles'}) }}">Boucles d'oreilles</a>
+    <a href="{{ path('app_catalogue') }}">Nouveautés</a>
+</nav>
+
+    <main>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-error">{{ message }}</div>
+        {% endfor %}
+
         {% block body %}{% endblock %}
-    </body>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">Mia Jewelry</div>
+                <p class="footer-text">Bijoux élégants créés avec passion. Chaque pièce est unique et fabriquée avec soin.</p>
+            </div>
+            <div>
+                <div class="footer-title">Navigation</div>
+                <ul class="footer-links">
+                    <li><a href="{{ path('app_home') }}">Accueil</a></li>
+                    <li><a href="{{ path('app_catalogue') }}">Catalogue</a></li>
+                    <li><a href="{{ path('app_cart') }}">Panier</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer-title">Mon compte</div>
+                <ul class="footer-links">
+                    {% if is_granted('ROLE_USER') %}
+                        <li><a href="{{ path('app_order_history') }}">Mes commandes</a></li>
+                        <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+                    {% else %}
+                        <li><a href="{{ path('app_login') }}">Connexion</a></li>
+                        <li><a href="{{ path('app_register') }}">Inscription</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            ✦ Mia Jewelry — Tous droits réservés {{ "now"|date("Y") }}
+        </div>
+    </footer>
+
+    {% block javascripts %}{% endblock %}
+</body>
 </html>

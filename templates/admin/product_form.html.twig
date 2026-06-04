@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product ? 'Modifier' : 'Nouveau' }} produit — Admin{% endblock %}
+
+{% block body %}
+<div class="admin-container">
+
+    <h1 style="font-family:var(--font-titre);font-weight:400;margin-bottom:10px;">
+        {{ product ? 'Modifier le produit' : 'Nouveau produit' }}
+    </h1>
+    <a href="{{ path('app_admin_products') }}" style="font-size:12px;color:#888;">← Retour aux produits</a>
+
+    <form method="post" enctype="multipart/form-data" style="margin-top:30px;max-width:700px;">
+
+        <div class="form-group">
+            <label>Nom du produit *</label>
+            <input type="text" name="name" required
+                   value="{% if product %}{{ product.name }}{% endif %}"
+                   placeholder="Ex: Collier Perles Dorées">
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" rows="4"
+                      placeholder="Description du produit">{% if product %}{{ product.description }}{% endif %}</textarea>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+            <div class="form-group">
+                <label>Prix (€) *</label>
+                <input type="number" name="price" step="0.01" required
+                       value="{% if product %}{{ product.price }}{% endif %}"
+                       placeholder="99.99">
+            </div>
+            <div class="form-group">
+                <label>Stock *</label>
+                <input type="number" name="stock" required
+                       value="{% if product %}{{ product.stock }}{% else %}0{% endif %}"
+                       placeholder="10">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Matière</label>
+            <input type="text" name="material"
+                   value="{% if product %}{{ product.material }}{% endif %}"
+                   placeholder="Or, Argent, Acier...">
+        </div>
+
+        <div class="form-group">
+            <label>Catégorie *</label>
+            <select name="category" required>
+                {% for category in categories %}
+                    <option value="{{ category.id }}"
+                        {% if product and product.category.id == category.id %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Image du produit</label>
+            {% if product and product.imageName %}
+                <img src="{{ asset('images/products/' ~ product.imageName) }}"
+                     style="width:100px;height:100px;object-fit:cover;display:block;margin-bottom:10px;">
+            {% endif %}
+            <input type="file" name="image" accept="image/*">
+        </div>
+
+        <div style="margin-bottom:20px;">
+            <label style="display:flex;align-items:center;gap:10px;text-transform:none;letter-spacing:0;font-size:14px;">
+                <input type="checkbox" name="isActive"
+                       {% if not product or product.isActive %}checked{% endif %}>
+                Produit actif (visible sur le catalogue)
+            </label>
+        </div>
+
+        <button type="submit" class="btn-primary" style="padding:14px 40px;">
+            {{ product ? 'Enregistrer' : 'Créer le produit' }}
+        </button>
+
+    </form>
+</div>
+{% endblock %}

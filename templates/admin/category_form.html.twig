@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ category ? 'Modifier' : 'Nouvelle' }} catégorie — Admin{% endblock %}
+
+{% block body %}
+<div style="max-width: 600px; margin: 40px auto; padding: 0 20px;">
+
+    <h1>{{ category ? 'Modifier la catégorie' : 'Nouvelle catégorie' }}</h1>
+    <a href="{{ path('app_admin_categories') }}">← Retour aux catégories</a>
+
+    <form method="post" style="margin-top: 30px;">
+
+        <div style="margin-bottom: 15px;">
+            <label>Nom de la catégorie *</label><br>
+            <input type="text" name="name" required
+                   value="{{ category ? category.name : '' }}"
+                   placeholder="Ex: Colliers, Bagues..."
+                   style="width: 100%; padding: 8px; margin-top: 5px;">
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label>Description</label><br>
+            <textarea name="description" rows="3"
+                      placeholder="Description de la catégorie"
+                      style="width: 100%; padding: 8px; margin-top: 5px;">{{ category ? category.description : '' }}</textarea>
+        </div>
+
+        <button type="submit"
+                style="background: black; color: white; padding: 12px 30px; border: none; cursor: pointer; font-size: 16px;">
+            {{ category ? 'Enregistrer' : 'Créer la catégorie' }}
+        </button>
+
+    </form>
+</div>
+{% endblock %}

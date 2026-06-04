@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mia Jewelry — Bijoux élégants{% endblock %}
+
+{% block body %}
+
+<section class="hero">
+    <div class="hero-image hero-image-main" style="background: #e8e0d8;">
+        <div class="hero-overlay">
+            <h1>Mia Jewelry</h1>
+            <p>Collection Printemps 2026</p>
+            <a href="{{ path('app_catalogue') }}" class="btn-primary">Découvrir</a>
+        </div>
+    </div>
+    <div class="hero-image" style="background: #d4c9bc;">
+        <div class="hero-overlay">
+            <p>Nouveautés</p>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="section-title">
+        <h2>Nos Collections</h2>
+        <p>Découvrez nos bijoux faits avec passion</p>
+    </div>
+</div>
+
+<div class="categories-grid">
+    <a href="{{ path('app_catalogue') }}" class="category-card" style="background: #c9b99a;">
+        <div class="category-label">Colliers</div>
+    </a>
+    <a href="{{ path('app_catalogue') }}" class="category-card" style="background: #b8a898;">
+        <div class="category-label">Bracelets</div>
+    </a>
+    <a href="{{ path('app_catalogue') }}" class="category-card" style="background: #a89888;">
+        <div class="category-label">Boucles</div>
+    </a>
+    <a href="{{ path('app_catalogue') }}" class="category-card" style="background: #988878;">
+        <div class="category-label">Bagues</div>
+    </a>
+</div>
+
+<div class="container">
+    <div class="section-title">
+        <h2>Nouveautés</h2>
+        <p>Les dernières pièces de notre collection</p>
+    </div>
+</div>
+
+{% endblock %}

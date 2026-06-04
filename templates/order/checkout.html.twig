@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande — Mia Jewelry{% endblock %}
+
+{% block body %}
+<div class="container" style="padding: 60px 40px;">
+
+    <div class="section-title">
+        <h2>Finaliser ma commande</h2>
+        <p>Vérifiez vos articles et renseignez vos informations</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 40px;">
+
+        <div>
+            <h3 style="font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:25px;">
+                Récapitulatif
+            </h3>
+
+            {% for item in cart %}
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:15px 0;border-bottom:1px solid #eee;">
+                <div style="display:flex;gap:15px;align-items:center;">
+                    {% if item.product.imageName %}
+                        <img src="{{ asset('images/products/' ~ item.product.imageName) }}"
+                             style="width:60px;height:60px;object-fit:cover;background:#f8f5f0;">
+                    {% else %}
+                        <div style="width:60px;height:60px;background:#f8f5f0;"></div>
+                    {% endif %}
+                    <div>
+                        <div style="font-size:12px;letter-spacing:1px;text-transform:uppercase;font-weight:500;">
+                            {{ item.product.name }}
+                        </div>
+                        <div style="font-size:12px;color:#888;margin-top:3px;">
+                            Qté : {{ item.quantity }}
+                        </div>
+                    </div>
+                </div>
+                <div style="font-weight:600;">
+                    {{ item.subtotal|number_format(2, ',', ' ') }} €
+                </div>
+            </div>
+            {% endfor %}
+
+            <div style="display:flex;justify-content:space-between;padding:20px 0;font-size:18px;font-weight:600;">
+                <span>Total</span>
+                <span>{{ total|number_format(2, ',', ' ') }} €</span>
+            </div>
+        </div>
+
+        <div>
+            <form method="post" action="{{ path('app_order_payment') }}">
+
+                <h3 style="font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:25px;">
+                    Livraison
+                </h3>
+
+                <div class="form-group">
+                    <label>Adresse de livraison</label>
+                    <textarea name="address" rows="3" required
+                              placeholder="123 rue de la Paix, 75001 Paris"
+                              style="width:100%;padding:12px;border:1px solid #ddd;font-family:inherit;font-size:14px;resize:none;">{{ app.user.address }}</textarea>
+                </div>
+
+                <h3 style="font-size:12px;letter-spacing:3px;text-transform:uppercase;margin:30px 0 25px;">
+                    Paiement simulé 💳
+                </h3>
+
+                <div class="form-group">
+                    <label>Numéro de carte</label>
+                    <input type="text" placeholder="1234 5678 9012 3456" maxlength="19">
+                </div>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+                    <div class="form-group">
+                        <label>Date d'expiration</label>
+                        <input type="text" placeholder="MM/AA">
+                    </div>
+                    <div class="form-group">
+                        <label>CVV</label>
+                        <input type="text" placeholder="123" maxlength="3">
+                    </div>
+                </div>
+
+                <div style="background:#f8f5f0;padding:12px;margin-bottom:25px;font-size:12px;color:#888;text-align:center;letter-spacing:1px;">
+                    ⚠️ Paiement simulé — aucune vraie transaction
+                </div>
+
+                <button type="submit" class="btn-primary" style="width:100%;text-align:center;padding:16px;font-size:13px;">
+                    Confirmer — {{ total|number_format(2, ',', ' ') }} €
+                </button>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

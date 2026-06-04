@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contactez-nous — Mia Jewelry{% endblock %}
+
+{% block body %}
+<div class="container" style="padding: 60px 40px;">
+
+    <div class="section-title">
+        <h2>Contactez-nous</h2>
+        <p>Nous sommes là pour vous aider</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:1000px;margin:0 auto;">
+
+        <div>
+            <h3 style="font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:25px;">
+                Nos coordonnées
+            </h3>
+
+            <div style="margin-bottom:25px;">
+                <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#888;margin-bottom:8px;">
+                    Email
+                </div>
+                <div style="font-size:15px;">contact@miajewelry.com</div>
+            </div>
+
+            <div style="margin-bottom:25px;">
+                <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#888;margin-bottom:8px;">
+                    Téléphone
+                </div>
+                <div style="font-size:15px;">+33 1 23 45 67 89</div>
+            </div>
+
+            <div style="margin-bottom:25px;">
+                <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#888;margin-bottom:8px;">
+                    Adresse
+                </div>
+                <div style="font-size:15px;">12 rue de la Paix<br>75001 Paris, France</div>
+            </div>
+
+            <div style="margin-bottom:25px;">
+                <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#888;margin-bottom:8px;">
+                    Horaires
+                </div>
+                <div style="font-size:15px;">
+                    Lundi — Vendredi : 9h — 18h<br>
+                    Samedi : 10h — 16h
+                </div>
+            </div>
+
+            <div style="background:#f8f5f0;padding:25px;margin-top:30px;">
+                <div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:15px;">
+                    Livraison & Retours
+                </div>
+                <p style="font-size:13px;color:#888;line-height:1.8;">
+                    🚚 Livraison offerte dès 80€<br>
+                    ↩️ Retours gratuits sous 30 jours<br>
+                    🔒 Paiement 100% sécurisé
+                </p>
+            </div>
+        </div>
+
+        <div>
+            <h3 style="font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:25px;">
+                Envoyer un message
+            </h3>
+
+            <form method="post">
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+                    <div class="form-group">
+                        <label>Nom *</label>
+                        <input type="text" name="name" required
+                               placeholder="Votre nom">
+                    </div>
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" name="email" required
+                               placeholder="votre@email.com">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Sujet *</label>
+                    <select name="subject" required>
+                        <option value="">Choisir un sujet</option>
+                        <option value="commande">Question sur une commande</option>
+                        <option value="produit">Question sur un produit</option>
+                        <option value="livraison">Livraison & Retours</option>
+                        <option value="autre">Autre</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Message *</label>
+                    <textarea name="message" rows="6" required
+                              placeholder="Votre message..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary"
+                        style="width:100%;text-align:center;padding:14px;">
+                    Envoyer le message
+                </button>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

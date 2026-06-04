@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Clients — Admin Mia Jewelry{% endblock %}
+
+{% block body %}
+<div class="admin-container">
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;">
+        <h1 style="font-family:var(--font-titre);font-weight:400;">Gestion des clients</h1>
+        <a href="{{ path('app_admin') }}" style="font-size:12px;color:#888;">← Dashboard</a>
+    </div>
+
+    <div style="background:#f8f5f0;padding:20px;margin-bottom:30px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;text-align:center;">
+        <div>
+            <div style="font-size:32px;font-family:var(--font-titre);">{{ users|length }}</div>
+            <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#888;">Total clients</div>
+        </div>
+        <div>
+            <div style="font-size:32px;font-family:var(--font-titre);">
+                {{ users|filter(u => 'ROLE_ADMIN' not in u.roles)|length }}
+            </div>
+            <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#888;">Clients</div>
+        </div>
+        <div>
+            <div style="font-size:32px;font-family:var(--font-titre);">
+                {{ users|filter(u => 'ROLE_ADMIN' in u.roles)|length }}
+            </div>
+            <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#888;">Admins</div>
+        </div>
+    </div>
+
+    <table class="cart-table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Téléphone</th>
+                <th>Adresse</th>
+                <th style="text-align:center;">Rôle</th>
+                <th style="text-align:center;">Inscrit le</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>
+                    <div style="font-weight:500;">{{ user.fullName }}</div>
+                </td>
+                <td style="color:#888;font-size:13px;">{{ user.email }}</td>
+                <td style="color:#888;font-size:13px;">{{ user.phone ?? '—' }}</td>
+                <td style="color:#888;font-size:13px;">{{ user.address ?? '—' }}</td>
+                <td style="text-align:center;">
+                    <span style="font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:4px 12px;
+                        background:{% if 'ROLE_ADMIN' in user.roles %}#1a1a1a{% else %}#f8f5f0{% endif %};
+                        color:{% if 'ROLE_ADMIN' in user.roles %}white{% else %}#888{% endif %};">
+                        {% if 'ROLE_ADMIN' in user.roles %}Admin{% else %}Client{% endif %}
+                    </span>
+                </td>
+                <td style="text-align:center;font-size:13px;color:#888;">
+                    {{ user.createdAt|date('d/m/Y') }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

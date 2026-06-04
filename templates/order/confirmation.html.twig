@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande confirmée — Mia Jewelry{% endblock %}
+
+{% block body %}
+<div class="container" style="padding: 80px 40px; text-align: center;">
+
+    <div style="max-width: 600px; margin: 0 auto;">
+
+        <div style="font-size: 50px; margin-bottom: 20px;">✦</div>
+
+        <h1 style="font-family: var(--font-titre); font-size: 32px; font-weight: 400; margin-bottom: 10px;">
+            Merci pour votre commande !
+        </h1>
+
+        <p style="color: #888; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 40px;">
+            Commande n° #{{ order.id }}
+        </p>
+
+        <div style="background: #f8f5f0; padding: 40px; margin-bottom: 40px; text-align: left;">
+
+            <h3 style="font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 25px;">
+                Récapitulatif
+            </h3>
+
+            {% for item in order.orderItems %}
+            <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #e8e0d8;">
+                <span style="font-size:13px;text-transform:uppercase;letter-spacing:1px;">
+                    {{ item.product.name }} x{{ item.quantity }}
+                </span>
+                <span style="font-weight:600;">
+                    {{ item.subtotal|number_format(2, ',', ' ') }} €
+                </span>
+            </div>
+            {% endfor %}
+
+            <div style="display:flex;justify-content:space-between;padding:20px 0;font-size:16px;font-weight:600;">
+                <span>Total payé</span>
+                <span>{{ order.totalAmount|number_format(2, ',', ' ') }} €</span>
+            </div>
+
+        </div>
+
+        <div style="margin-bottom: 40px;">
+            <p style="font-size:13px;color:#888;margin-bottom:8px;">
+                Statut : <strong style="color:#1a1a1a;">{{ order.statusLabel }}</strong>
+            </p>
+            <p style="font-size:13px;color:#888;">
+                Livraison à : <strong style="color:#1a1a1a;">{{ order.shippingAddress }}</strong>
+            </p>
+        </div>
+
+        <div style="display:flex;gap:15px;justify-content:center;">
+            <a href="{{ path('app_order_history') }}" class="btn-secondary">
+                Voir mes commandes
+            </a>
+            <a href="{{ path('app_catalogue') }}" class="btn-primary">
+                Continuer mes achats
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
